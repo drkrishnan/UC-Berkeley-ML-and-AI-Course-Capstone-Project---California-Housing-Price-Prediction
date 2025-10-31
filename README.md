@@ -14,6 +14,18 @@ Accurate predictions support **policy makers**, **developers**, and **home buyer
 
 ---
 
+## 🧠 Rationale
+
+This dataset was chosen because it represents **real-world housing economics** with quantifiable features.
+Predicting median house values helps explore how **socioeconomic and geographic factors** drive market variations across California regions.
+
+---
+
+## ❓ Research Question
+
+> “How accurately can we predict the median house value of California districts based on demographics, housing characteristics, and geography?”
+
+---
 ### **Findings**
 
 After comparing multiple regression algorithms, the **Tuned Random Forest Regressor** emerged as the top performer.
@@ -70,69 +82,70 @@ The Random Forest model offers a **robust, interpretable, and high-accuracy** so
 4. Use **cross-region validation** to generalize performance beyond California.
 5. Monitor and retrain models periodically with updated data.
 
----
+## 📬 Contact and Further Information
 
-## 🧠 Rationale
-
-This dataset was chosen because it represents **real-world housing economics** with quantifiable features.
-Predicting median house values helps explore how **socioeconomic and geographic factors** drive market variations across California regions.
-
----
-
-## ❓ Research Question
-
-> “How accurately can we predict the median house value of California districts based on demographics, housing characteristics, and geography?”
+For queries or collaborations:
+📧 *[drkrishnan@yahoo.com](mailto:drkrishnan@yahoo.com)*
+🔗 LinkedIn: https://www.linkedin.com/in/krishnan-devakottai-ramaswami-8b39684/
 
 ---
 
-## 📂 Data Sources
+### 💡 **Technical Deep Dive**
 
-### **Dataset Source**
+The content below is intended for readers who wish to explore the **technical foundation** of this capstone project.  
+It offers a transparent look into the **dataset used**, **data preparation and preprocessing workflow**, **key observations from Exploratory Data Analysis (EDA)**, and the **machine learning models** that were developed and optimized throughout the study.  Additionally, it highlights the **visual analytics and interpretive techniques** that guided the final conclusions, performance evaluation, and recommendations.  
 
-* **Origin:** [scikit-learn – California Housing Dataset](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html)
-* **Rows:** 20,640
-* **Columns:** 9
-* **Target Variable:** `MedHouseValue`
-* **Null Values:** None
+This section is especially valuable for those interested in the **implementation details, methodological choices, and analytical reasoning** behind the project’s outcomes.
 
-**Columns:**
+---
+
+## 📂 Dataset Overview
+
+| Property             | Description |
+|----------------------|-------------|
+| **Source**           | California Housing Dataset *(Scikit-learn built-in / Kaggle equivalent)* |
+| **Rows**             | 20,640 |
+| **Columns**          | 9 |
+| **Target Variable**  | `MedHouseValue` |
+| **Null Values**      | None |
+| **File Size**        | ~1.4 MB |
+
+**Columns:**  
 `MedInc`, `HouseAge`, `AveRooms`, `AveBedrms`, `Population`, `AveOccup`, `Latitude`, `Longitude`, `MedHouseValue`
 
----
-
-### **Exploratory Data Analysis**
-
-EDA included:
-
-* **Distribution plots** for all numerical features
-* **Scatterplots** showing spatial and income-value relationships
-* **Correlation heatmap** identifying linear dependencies
-* **Geographic visualization indicated that high-value houses tend to cluster near the California coastline
-
-**Key Insights:**
-
-* Median income (`MedInc`) strongly correlates with house value.
-* Houses near latitude ~37–38 (San Francisco) have the highest prices.
-* Features are continuous and normally distributed after scaling.
+**Data Summary:**  
+All features are numerical, with no missing values. The dataset captures demographic and housing attributes across California districts.
 
 ---
 
-### **Cleaning and Preparation**
+## ⚙️ Data Preparation and Preprocessing
 
-* Verified dataset integrity: no missing or duplicate records.
-* Removed no columns due to completeness.
-* Ensured feature types were numeric and consistent.
-
----
-
-### **Preprocessing**
-
-* **Scaling:** Standardized numerical features using `StandardScaler`.
-* **Encoding:** None required (all numeric).
-* **Outlier Treatment:** IQR-based capping for extreme values.
-* **Train-Test Split:** 80/20 for robust evaluation.
+1. **Train–Test Split:** 80% training / 20% testing.  
+2. **Scaling:** Standardized all numeric variables using `StandardScaler`.  
+3. **Encoding:** *Not required* – all columns are numeric.  
+4. **Feature Engineering:** Added derived ratio-based features to enhance interpretability:  
+   - `Rooms_per_Household = AveRooms / AveOccup`  
+   - `Bedrooms_per_Room = AveBedrms / AveRooms`  
+   - `Population_per_Household = Population / AveOccup`  
+5. **Outlier Handling:** IQR-based capping for all numeric and engineered features.
 
 ---
+## 🔍 Exploratory Data Analysis (EDA)
+
+EDA visualizations were generated to understand distributions, relationships, and spatial trends in the housing data.
+
+### 📊 **Generated Plots**
+| Visualization | Description | File |
+|----------------|-------------|------|
+| **Correlation Heatmap** | Shows relationships among numeric features; `MedInc` strongly correlates with `MedHouseValue`. | `images/Correlation Heatmap.png` |
+| **Feature Histograms** | Displays feature distributions after scaling and outlier capping. | `images/housing_feature_histograms.png` |
+| **Median Income vs House Value** | Demonstrates direct proportionality between `MedInc` and house value. | `images/median_income_vs_housevalue.png` |
+| **Geographic Distribution** | Maps property value clusters by latitude and longitude—high-value districts near coastal California. | `images/geographic_distribution.png` |
+
+### 🔎 **Key Observations**
+- **Income:** `MedInc` is the most significant predictor of housing value.  
+- **Geography:** High-value homes cluster along the **California coastline** and **urban centers**.  
+- **Feature Shape:** Most variables are **right-skewed**, reflecting natural economic distribution.
 
 ### **Final Dataset**
 
@@ -198,23 +211,15 @@ EDA included:
 
 ## 🗂️ Outline of Project
 
-1. Import libraries and load dataset
-2. Perform EDA with visual summaries
-3. Preprocess and scale features
-4. Engineer additional features
-5. Train multiple regression models
-6. Tune hyperparameters (Random Forest & SVR)
-7. Evaluate and compare performance
-8. Generate dynamic summary and recommendations
-9. Save all results and charts
-
----
-
-## 📬 Contact and Further Information
-
-For queries or collaborations:
-📧 *[drkrishnan@yahoo.com](mailto:drkrishnan@yahoo.com)*
-🔗 LinkedIn: https://www.linkedin.com/in/krishnan-devakottai-ramaswami-8b39684/
+1. **Import libraries and load dataset**
+2. **Perform EDA with visual summaries**
+3. **Preprocess and scale features**
+4. **Engineer additional features**
+5. **Train multiple regression models**
+6. **Tune hyperparameters (Random Forest & SVR)**
+7. **Evaluate and compare performance**
+8. **Generate dynamic summary and recommendations**
+9. **Save all results and charts**
 
 ---
 
